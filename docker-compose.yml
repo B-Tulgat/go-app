@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  go-mongo:
+    build: ./go-mongo
+    ports:
+      - "3729:3729"
+    env_file:
+      - ./go-mongo/.env
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  go-redis:
+    build: ./go-redis
+    ports:
+      - "6342:6342"
+    network_mode: host
+    depends_on:
+      - redis
+    env_file:
+      - ./go-redis/.env
