@@ -125,7 +125,7 @@ func processPrompts(collection *mongo.Collection) {
 
 func sendPromptToPort(prompt Prompt, port int, collection *mongo.Collection, ctx context.Context) {
     url := fmt.Sprintf("http://localhost:%d", port)
-    payload, _ := json.Marshal(map[string]string{"prompt": prompt.Content})
+    payload, _ := json.Marshal(map[string]string{"prompt": prompt.Content, "id":prompt.ID})
 
     req, err := http.NewRequest("POST", url, bytes.NewBuffer(payload))
     if err != nil {
